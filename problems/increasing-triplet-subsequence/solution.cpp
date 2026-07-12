@@ -10,7 +10,7 @@ public:
             else if(nums[i]<secondSmol){
                 secondSmol = nums[i];
             }
-            else return true;
+            else if(nums[i] >smol && nums[i] > secondSmol) return true;
         }
 return false;
     }
