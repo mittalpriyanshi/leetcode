@@ -4,13 +4,13 @@ public:
         int smol = INT_MAX;
         int secondSmol = INT_MAX;
         for(int i=0;i<nums.size();i++){
-            if(nums[i]<smol){
+            if(nums[i]<=smol){
                 smol = nums[i];
             }
-            else if(nums[i]<secondSmol){
+            else if(nums[i]<=secondSmol){
                 secondSmol = nums[i];
             }
-            else if(nums[i] >smol && nums[i] > secondSmol) return true;
+            else return true;
         }
 return false;
     }
