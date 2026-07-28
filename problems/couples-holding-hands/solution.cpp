@@ -9,29 +9,41 @@ class DSU{
             parent[i]=i;
         }
     }
-    void doUnion(int a, int b){
-        parent[b]=parent[a];
-        size[a]++;
-    }
+   int find(int x){
+    if(parent[x]==x) return x;
+    return parent[x]=find(parent[x]);
+}
+
+void unite(int a,int b){
+    a=find(a);
+    b=find(b);
+
+    if(a==b) return;
+
+    if(size[a]<size[b]) swap(a,b);
+
+    parent[b]=a;
+    size[a]+=size[b];
+}
 };
  
 class Solution {
 public:
     int minSwapsCouples(vector<int>& row) {
-        int n =row.size();
-        DSU con(n);
-        int misplaced=0;
-        unordered_map<int,int> locs;
-        for(int i=0;i<n;i++){
-            locs[row[i]]=i;
+        int n =row.size()/2;
+        DSU dsu(n);
+        for (int i = 0; i < row.size(); i += 2) {
+            int c1 = row[i] / 2;
+            int c2 = row[i + 1] / 2;
+            dsu.unite(c1, c2);
         }
-        for(int i=0;i<n-1;i+=2){
-            con.doUnion(locs[i], locs[i+1]);
+
+        int components = 0;
+        for (int i = 0; i < n; i++) {
+            if (dsu.find(i) == i)
+                components++;
         }
-        for(int i=1;i<n;i+=2){
-            if(con.parent[i]!=con.parent[i-1]) misplaced++;
-        }
-        if (misplaced==0) return 0;
-        return misplaced-1;
+
+        return n - components;
     }
 };
