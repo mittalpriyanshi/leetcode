@@ -14,7 +14,7 @@ vector<int> degree(n);
         //repeatedly prune leaves which have zero coins
         queue<int> q;
         for(int i=0;i<n;i++){
-            if(degree[i]==0 && coins[i]==0) q.push(i);
+            if(degree[i]==1 && coins[i]==0) q.push(i);
         }
         while(!q.empty()){
             int u = q.front();
