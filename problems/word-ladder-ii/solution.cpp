@@ -3,30 +3,44 @@ public:
     vector<vector<string>> findLadders(string beginWord, string endWord,
                                        vector<string>& wordList) {
         int n = wordList.size();
-        if (wordList[n - 1] != endWord)
-            return {};
         vector<vector<string>> res;
         unordered_map<string, vector<string>> hash;
-        set<string> st(wordList.begin(), wordList.end());
+        unordered_map<string, int> dist;
+        dist[beginWord] = 0;
+        vector<string> usedAtLevel;
+        unordered_set<string> st(wordList.begin(), wordList.end());
+        if (st.find(endWord) == st.end())
+            return {};
         queue<string> q;
         q.push(beginWord);
-        st.erase(beginWord);
         while (!q.empty()) {
-            string w = q.front();
-            string orgW = w;
-            q.pop();
-            for (int i = 0; i < w.length(); i++) {
-                char org = w[i];
-                for (char c = 'a'; c <= 'z'; c++) {
-                    w[i] = c;
-                    if (st.find(w) != st.end()) {
-                        st.erase(w);
-                        q.push(w);
-                        hash[orgW].push_back(w);
+            int size = q.size();
+            while (size--) {
+                string w = q.front();
+                string curr = w;
+                q.pop();
+                if(curr == endWord) break;
+                for (int i = 0; i < w.length(); i++) {
+                    char org = w[i];
+                    for (char c = 'a'; c <= 'z'; c++) {
+                        w[i] = c;
+                        if (st.find(w) != st.end()) {
+                            if (dist.find(w) == dist.end()) {
+                                dist[w] = dist[curr] + 1;
+                                q.push(w);
+                                hash[curr].push_back(w);
+                                 usedAtLevel.push_back(w);
+                            } else if (dist[w] == dist[curr] + 1) {
+                                hash[curr].push_back(w);
+                            }
+                           
+                        }
                     }
+                    w[i] = org;
                 }
-                w[i] = org;
             }
+            for (auto& x : usedAtLevel)
+                st.erase(x);
         }
         vector<string> temp;
         temp.push_back(beginWord);
