@@ -5,22 +5,12 @@ public:
     StockPrice() {}
 
     void update(int timestamp, int price) {
-        bool containsThisPrice = false;
         if (mp.find(timestamp) != mp.end()) {
-            int org = mp[timestamp];
-            for (auto [k, v] : mp) {
-                if (v == price && k != timestamp) {
-                    containsThisPrice = true;
-                }
-            }
-            if (!containsThisPrice)
-                s.erase(org);
-            mp[timestamp] = price;
-            s.insert(price);
-        } else {
-            mp[timestamp] = price;
-            s.insert(price);
-        }
+        s.erase(s.find(mp[timestamp]));   // erase one old price
+    }
+
+    mp[timestamp] = price;
+    s.insert(price);
     }
 
     int current() { return mp[prev(mp.end())->first]; }
