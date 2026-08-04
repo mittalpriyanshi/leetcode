@@ -1,66 +1,66 @@
 class Solution {
 public:
-    vector<vector<string>> findLadders(string beginWord, string endWord,
-                                       vector<string>& wordList) {
-        int n = wordList.size();
-        vector<vector<string>> res;
-        unordered_map<string, vector<string>> hash;
-        unordered_map<string, int> dist;
-        dist[beginWord] = 0;
-        vector<string> usedAtLevel;
-        unordered_set<string> st(wordList.begin(), wordList.end());
-        if (st.find(endWord) == st.end())
-            return {};
-        queue<string> q;
-        q.push(beginWord);
-        while (!q.empty()) {
-            int size = q.size();
-            while (size--) {
-                string w = q.front();
-                string curr = w;
-                q.pop();
-                if(curr == endWord) break;
-                for (int i = 0; i < w.length(); i++) {
-                    char org = w[i];
-                    for (char c = 'a'; c <= 'z'; c++) {
-                        w[i] = c;
-                        if (st.find(w) != st.end()) {
-                            if (dist.find(w) == dist.end()) {
-                                dist[w] = dist[curr] + 1;
-                                q.push(w);
-                                hash[curr].push_back(w);
-                                 usedAtLevel.push_back(w);
-                            } else if (dist[w] == dist[curr] + 1) {
-                                hash[curr].push_back(w);
-                            }
-                           
-                        }
-                    }
-                    w[i] = org;
-                }
-            }
-            for (auto& x : usedAtLevel)
-                st.erase(x);
-        }
-        vector<string> temp;
-        temp.push_back(beginWord);
-        make(res, hash, beginWord, endWord, temp);
-        return res;
-        // now we have kind of an adjacency list in form of hash map
-    }
-
-    void make(vector<vector<string>>& res,
-              unordered_map<string, vector<string>>& hash, string beginWord,
-              string endWord, vector<string>& temp) {
-        if (beginWord == endWord) {
-            res.push_back(temp);
+    void dfs(string word, string beginWord, vector<string> &path,  unordered_map<string, int>& depthMap, vector<vector<string>>& ans) {
+if (word == beginWord) {
+            reverse(path.begin(), path.end());
+            ans.push_back(path);
+            reverse(path.begin(), path.end());
             return;
         }
-        for (int i = 0; i < hash[beginWord].size(); i++) {
-            temp.push_back(hash[beginWord][i]);
-            make(res, hash, hash[beginWord][i], endWord, temp);
-            temp.pop_back();
+        
+        int steps = depthMap[word];
+        for (int i = 0; i < word.size(); ++i) {
+            char original = word[i];
+            for (char ch = 'a'; ch <= 'z'; ++ch) {
+                word[i] = ch;
+                if (depthMap.count(word) && depthMap[word] + 1 == steps) {
+                    path.push_back(word);
+                    dfs(word, beginWord, path, depthMap, ans);
+                    path.pop_back();
+                }
+            }
+            word[i] = original;
         }
-        return;
+    }
+
+    vector<vector<string>> findLadders(string beginWord, string endWord,
+                                       vector<string>& wordList) {
+
+        unordered_map<string, int> depthMap;
+        vector<vector<string>> ans;
+        
+        // BFS to find the shortest path
+        unordered_set<string> wordSet(wordList.begin(), wordList.end());
+        queue<string> q;
+        q.push(beginWord);
+        depthMap[beginWord] = 1;
+        wordSet.erase(beginWord);
+        
+        while (!q.empty()) {
+            string word = q.front();
+            q.pop();
+            int steps = depthMap[word];
+            if (word == endWord) break;
+            for (int i = 0; i < word.size(); ++i) {
+                char original = word[i];
+                for (char ch = 'a'; ch <= 'z'; ++ch) {
+                    word[i] = ch;
+                    if (wordSet.count(word)) {
+                        q.push(word);
+                        wordSet.erase(word);
+                        depthMap[word] = steps + 1;
+                    }
+                }
+                word[i] = original;
+            }
+        }
+        
+        // DFS to find all paths
+        if (depthMap.count(endWord)) {
+            vector<string> seq = {endWord};
+            dfs(endWord, beginWord, seq, depthMap, ans);
+        }
+        
+        return ans;
     }
 };
