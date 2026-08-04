@@ -10,7 +10,7 @@ public:
         }
         for(int i=0;i<n;i++){
             if(text2[i]==text1[0]) dp[0][i]=1;
-             if(i!=0) dp[0][i] = max(dp[0][i-1], dp[0][i-1]);
+             if(i!=0) dp[0][i] = max(dp[0][i-1], dp[0][i]);
         }
         for(int i=1;i<m;i++){
             for(int j=1;j<n;j++){
