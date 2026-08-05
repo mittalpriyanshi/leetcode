@@ -17,11 +17,11 @@ public:
         logic(0,-1,runningTime,adj,vis,startTime, lowestTime, bridges);
         return bridges;
     }
-    void logic(int node, int parent, int runningTime, vector<vector<int>>& adj, vector<bool>& vis, vector<int>& st, vector<int>& lt, vector<vector<int>>& bridges ) {
+    void logic(int node, int parent, int& runningTime, vector<vector<int>>& adj, vector<bool>& vis, vector<int>& st, vector<int>& lt, vector<vector<int>>& bridges ) {
         vis[node]=true;
         st[node] = lt[node]=runningTime;
         runningTime++;
-        for(auto child : adj[node]){
+        for(const auto child : adj[node]){
             if(child == parent) continue;
             if(!vis[child]){
                 logic(child,node, runningTime, adj, vis, st,lt,bridges);
