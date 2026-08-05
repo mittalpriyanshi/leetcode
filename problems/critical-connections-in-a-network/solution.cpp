@@ -12,9 +12,9 @@ public:
         vector<int> lowestTime(n);
         vector<vector<int>> bridges;
         // source as 0
-        startTime[0] = 1;
+        startTime[0] = lowestTime[0]=1;
         int runningTime =1;
-        logic(0,0,runningTime,adj,vis,startTime, lowestTime, bridges);
+        logic(0,-1,runningTime,adj,vis,startTime, lowestTime, bridges);
         return bridges;
     }
     void logic(int node, int parent, int runningTime, vector<vector<int>>& adj, vector<bool>& vis, vector<int>& st, vector<int>& lt, vector<vector<int>>& bridges ) {
@@ -26,11 +26,11 @@ public:
             if(!vis[child]){
                 logic(child,node, runningTime, adj, vis, st,lt,bridges);
                 lt[node] = min(lt[node], lt[child]);
-                if(lt[child] > lt[node]){
+                if(lt[child] > st[node]){
                     bridges.push_back({child,node});
                 }
             }
-            else lt[node] = min(lt[node], lt[child]);
+            else lt[node] = min(lt[node], st[child]);
         }
 
     }
