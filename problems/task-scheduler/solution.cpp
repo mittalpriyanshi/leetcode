@@ -1,45 +1,38 @@
 class Solution {
 public:
     int leastInterval(vector<char>& tasks, int n) {
-        unordered_map<char, int> freq;
-        unordered_map<char, int> minTime;
-        for (auto c : tasks) {
-            freq[c]++;
-            minTime[c] = INT_MIN;
+        priority_queue<int> pq;
+        vector<int>mp(26,0);
+
+        for(char i:tasks){
+            mp[i-'A']++;  
+        }   
+        for(int i=0;i<26;++i){
+            if(mp[i]) 
+            pq.push(mp[i]);
         }
-        int time = 1;
-        priority_queue<pair<int, char>> pq;
 
-        while (!freq.empty()) {
-    
-            while (!pq.empty())
+        int time=0; 
+        while(!pq.empty()){
+            vector<int>remain;
+            int cycle=n+1;  
+
+            while(cycle and !pq.empty()){
+                int max_freq=pq.top(); 
                 pq.pop();
-            for (auto [k, v] : freq)
-                pq.push({v, k});  
-
-            bool executed = false;
-            while (!pq.empty()) {
-
-                auto t = pq.top();
-                pq.pop();
-                int f = t.first;
-                char task = t.second;
-                if (minTime[task] <= time) {
-                    time++;
-                    minTime[task] = time + n;
-                    freq[task]--;
-                    if (freq[task] == 0)
-                        freq.erase(task);
-                    executed = true;
-                    break;
+                if(max_freq>1){
+                    remain.push_back(max_freq-1); 
                 }
+                ++time; 
+                --cycle; 
             }
-            // No task was available => idle
-            if (!executed) {
-                time++;
-            }
-        }
 
-        return time - 1;
+            for(int count:remain){
+                pq.push(count); 
+            }
+            if(pq.empty())break; 
+            time+=cycle;
+        }
+        return time;
     }
 };
