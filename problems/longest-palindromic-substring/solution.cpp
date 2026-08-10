@@ -5,8 +5,7 @@ public:
         vector<vector<bool>> dp(n, vector<bool>(n,false));
         string ans = "";
         ans+=s[0];
-        for(int i=0;i<n;i++) 
-        for(int start=0;start<n;start++){
+        for(int start=n-1;start>=0;start--){
             dp[start][start]=true;
             for(int end=start;end<n;end++){
                 if(s[start]==s[end] && (end-start<=2 || dp[start+1][end-1]==true)){
