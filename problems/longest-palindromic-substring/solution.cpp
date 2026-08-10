@@ -6,7 +6,7 @@ public:
         string ans = "";
         ans+=s[0];
         for(int i=0;i<n;i++) 
-        for(int start=0;start<n-1;start++){
+        for(int start=0;start<n;start++){
             dp[start][start]=true;
             for(int end=start;end<n;end++){
                 if(s[start]==s[end] && (end-start<=2 || dp[start+1][end-1]==true)){
