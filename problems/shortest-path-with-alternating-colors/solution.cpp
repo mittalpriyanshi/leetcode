@@ -29,9 +29,7 @@ public:
             for(auto child: adj[parent]){
                 int next = child.first;
                 int color = child.second;
-                if(child.first == parent){
-                    continue; //self edge
-                }
+                
                 if(color == prevcolor) continue;
                 if(dist[next][color]== INT_MAX){ //not reached
                     dist[next][color] = dist[parent][prevcolor] + 1;
