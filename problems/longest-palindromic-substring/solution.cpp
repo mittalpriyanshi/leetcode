@@ -1,0 +1,19 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int n = s.size();
+        vector<vector<bool>> dp(n, vector<bool>(n,false));
+        string ans="";
+        for(int i=0;i<n;i++) dp[i][i]=true;
+        for(int start=0;start<n-1;start++){
+            for(int end=start+1;end<n;end++){
+                if(s[start]==s[end] && (end-start<=2 || dp[start+1][end-1]==true)){
+                    dp[start][end]=true;
+                    string subs = s.substr(start, end-start+1);
+                    if(subs.size()>ans.size()) ans = subs;
+                }
+            }
+        }
+        return ans;
+    }
+};
