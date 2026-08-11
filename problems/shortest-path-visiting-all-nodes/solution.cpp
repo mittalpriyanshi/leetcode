@@ -6,19 +6,19 @@ public:
         int allVisited = (1 << n) - 1;
         queue<pair<int, int>> q; // node,mask;
         vector<vector<bool>> visitedMasks(n, vector<bool>((1 << n), false));
-        for (int i = 0; i < n; i++) {
-            if (graph[i].size() < 2) {
-                int mask = (1 << i);
-                q.push({i, mask});
-                visitedMasks[i][mask] = true;
-            }
-        }
-        if (q.empty()) {
+        // for (int i = 0; i < n; i++) {
+        //     if (graph[i].size() < 2) {
+        //         int mask = (1 << i);
+        //         q.push({i, mask});
+        //         visitedMasks[i][mask] = true;
+        //     }
+        // }
+        
             for (int i = 0; i < n; ++i) {
                 q.push({i, 1 << i});
                 visitedMasks[i][1 << i] = true;
             }
-        }
+        
         int pathlen = 0;
         while (!q.empty()) {
             int size = q.size();
@@ -36,6 +36,7 @@ public:
                     visitedMasks[neigh][newMask] = true;
                     q.push({neigh, newMask});
                 }
+                
             }
             pathlen++;
         }
