@@ -2,22 +2,23 @@ class Solution {
 public:
     int missingInteger(vector<int>& nums) {
         int n = nums.size();
-        int maxE = *max_element(nums.begin(), nums.end());
-        int maxSum=0;
         int i=1;
         int sum=nums[0];
         while(i<n){
             if(nums[i]==nums[i-1]+1){
                 sum+=nums[i];
+                i++;
             }
-            else{
-                maxSum = max(maxSum, sum);
-                sum=nums[i];
-            }
-            i++;
+            else break;
         }
-        maxSum = max(maxSum, sum);
-        if(maxE >= maxSum) return maxE+1;
-        else return maxSum;
+        vector<bool> hashBool(1276, false);
+        for(int num : nums)
+            hashBool[num] = true;
+
+        while(hashBool[sum])
+            sum++;
+
+        return sum;
+
     }
 };
