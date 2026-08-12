@@ -3,9 +3,10 @@ public:
     int maxNonOverlapping(vector<int>& nums, int target) {
         int n=nums.size();
          unordered_map<int,int> freq;
-        int last=0;
+        int last=-1;
         int count=0;
         int prefix=0;
+        freq[0]=-1;
         for(int i=0;i<n;i++){
             prefix+= nums[i];
             if(freq.find(prefix-target) !=freq.end() && freq[prefix-target] >=last){
