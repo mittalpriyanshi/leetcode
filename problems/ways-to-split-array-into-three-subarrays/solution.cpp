@@ -1,49 +1,42 @@
 class Solution {
 public:
-    long long MOD = 1e9 + 7;
     int waysToSplit(vector<int>& nums) {
+        const int MOD = 1e9 + 7;
         int n = nums.size();
-        if (n == 3 && nums[0] == nums[1] && nums[1] == nums[2])
-            return 1;
-        vector<long> prefix(n);
+
+        vector<long long> prefix(n);
         prefix[0] = nums[0];
         for (int i = 1; i < n; i++) {
-            prefix[i] = nums[i] + prefix[i - 1];
+            prefix[i] = prefix[i - 1] + nums[i];
         }
-        // 1 2 2 2 5 0
-        // 1 3 5 7 12 12
-        // 1 | 2 |2 2 5 0
-        // prefix[i]<= prefix[j]-prefix[i] <= prefix[n-1] - prefix[j]
+
         long long ans = 0;
-        long total = prefix[n - 1];
+        int j = 1, k = 1;
+
         for (int i = 0; i < n - 2; i++) {
-            long left = prefix[i];
-            long right = (total + left) / 2;
-            int l = i + 1;
-            int r = n - 2;
-            int midstart;
-            while (l <= r) {
-                int mid = (l + r) / 2;
-                if (prefix[mid] >= 2 * left)
-                    r = mid - 1;
-                if (prefix[mid] <2 *  left)
-                    l = mid + 1;
+
+            // j must be at least i+1
+            j = max(j, i + 1);
+
+            // Find first j such that leftSum <= midSum
+            while (j < n - 1 &&
+                   prefix[j] - prefix[i] < prefix[i]) {
+                j++;
             }
-            midstart = l;
-            int midend;
-            l = midstart;
-            r = n - 2;
-            while (l <= r) {
-                int mid = (l + r) / 2;
-                if (prefix[mid] > right)
-                    r = mid - 1;
-                if (prefix[mid] <= right)
-                    l = mid + 1;
+
+            // k should never be behind j
+            k = max(k, j);
+
+            // Find first k where midSum > rightSum
+            while (k < n - 1 &&
+                   prefix[k] - prefix[i] <= prefix[n - 1] - prefix[k]) {
+                k++;
             }
-            midend = r;
-            if (midstart <= midend)
-                ans = (ans + midend - midstart + 1) % MOD;
+
+            ans += (k - j);
+            ans %= MOD;
         }
+
         return ans;
     }
 };
