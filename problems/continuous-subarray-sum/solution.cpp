@@ -9,7 +9,7 @@ public:
             prefix += nums[i];
             int rem = prefix%k;
             if(mp.find(rem)!= mp.end() && i-mp[rem]>=2) return true;
-            mp[rem]=i;
+            mp[rem]=min(i, mp[rem]);
         }
         return false;
     }
