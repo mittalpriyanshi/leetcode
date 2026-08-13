@@ -5,7 +5,7 @@ public:
         mp[0]=1;
         int n=nums.size();
         if(n==1) {
-            if (n%5==0) return 1;
+            if (nums[0] % k==0) return 1;
             else return 0;
         } 
         vector<int>pre(n);
@@ -15,9 +15,9 @@ public:
         }
         int ans=0;
         for(int i =0;i<n;i++){
-            if(mp.find(pre[i]%5)!=mp.end()){
-                ans += mp[pre[i]%5];
-                mp[pre[i]%5]++;     
+            if(mp.find(pre[i]%k)!=mp.end()){
+                ans += mp[pre[i]%k];
+                mp[pre[i]%k]++;     
             }
             mp[pre[i]]++;
         }
