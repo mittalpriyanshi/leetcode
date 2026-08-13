@@ -10,10 +10,8 @@ public:
             int rem = prefix%k;
             if(mp.find(rem)!= mp.end()){
                 if(i-mp[rem]>=2) return true;
-                mp[rem]=min(i, mp[rem]);
-                continue;
             } 
-            mp[rem]=i;
+            else mp[rem]=i;
         }
         return false;
     }
