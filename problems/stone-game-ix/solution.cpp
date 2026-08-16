@@ -5,6 +5,7 @@ public:
         int allsum=0;
         for(auto x:stones) allsum+=x;
         if(n%2!=0) return false;
-        else return true;
+        else if(allsum%3!=0) return false;
+        return true;
     }
 };
