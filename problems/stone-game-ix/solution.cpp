@@ -1,11 +1,24 @@
 class Solution {
 public:
     bool stoneGameIX(vector<int>& stones) {
-        int n=stones.size();
-        int allsum=0;
-        for(auto x:stones) allsum+=x;
-        if(n%2!=0) return false;
-        else if(allsum%3!=0) return false;
-        return true;
+        int a = 0;
+        int b = 0;
+        int c = 0;
+
+        for (int i : stones) {
+            if (i % 3 == 0) {
+                a++;
+            } else if (i % 3 == 1) {
+                b++;
+            } else {
+                c++;
+            }
+        }
+
+        if (a % 2 == 0) {
+            return b > 0 && c > 0;
+        }
+
+        return abs(b - c) > 2;
     }
 };
