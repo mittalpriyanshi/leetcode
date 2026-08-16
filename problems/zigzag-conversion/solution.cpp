@@ -8,7 +8,7 @@ public:
         int blocks = n / eachInterval + 1;
         
         vector<vector<char>> matrix(numRows,
-                                    vector<char>(blocks * (numRows - 1), '.'));
+                                    vector<char>(blocks * (numRows - 1), '_'));
         int k = 0;
         int i = 0, j = 0;
         
@@ -39,7 +39,7 @@ public:
         string res = "";
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < blocks * (numRows - 1); j++) {
-                if (matrix[i][j] != '.')  res += matrix[i][j];
+                if (matrix[i][j] != '_')  res += matrix[i][j];
             }
         }
         
