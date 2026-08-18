@@ -12,13 +12,13 @@ public:
         if(dp[idx]!= 0) return dp[idx];
         int ans = 0;
         for(int j=1;j<=d;j++){
-            if(idx+j < arr.size() && arr[idx+j]>arr[idx]) break;
+            if(idx+j < arr.size() && arr[idx+j]>=arr[idx]) break;
             else if(idx+j < arr.size() && arr[idx+j]<arr[idx]){
                 ans = max(ans, solve(idx+j, d,arr,dp));
             }
         }
         for(int j=1;j<=d;j++){
-            if(idx-j >=0 && arr[idx-j]>arr[idx]) break;
+            if(idx-j >=0 && arr[idx-j]>=arr[idx]) break;
             if(idx-j>=0 && arr[idx-j]<arr[idx]){
                 ans = max(ans, solve(idx-j, d,arr,dp));
             }
