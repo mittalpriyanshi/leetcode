@@ -12,7 +12,7 @@ public:
             int t= q.front();
             q.pop();
             if(t==n-1) return true;
-            int start=t+minJump;
+            int start=max(t+minJump, far+1);
             int end=min(t+maxJump,n-1);
             for(int i=start;i<=end;i++){
                 if(!vis[i] && s[i]=='0'){
@@ -20,6 +20,7 @@ public:
                     q.push(i);
                 } 
             }
+            far=end;
         }
         return false;
     }
