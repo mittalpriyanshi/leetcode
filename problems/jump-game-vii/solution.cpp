@@ -7,12 +7,13 @@ public:
         vector<bool> vis(n,false);
         vis[0]=true;
         q.push(0);
+        int far=0;
         while(!q.empty()){
             int t= q.front();
             q.pop();
             if(t==n-1) return true;
-            int start = t+ minJump;
-            int end = t+maxJump;
+            int start=t+minJump;
+            int end=min(t+maxJump,n-1);
             for(int i=start;i<=end;i++){
                 if(!vis[i] && s[i]=='0'){
                     vis[i]=true;
