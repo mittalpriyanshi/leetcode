@@ -2,7 +2,7 @@ class Solution {
 public:
     int findLatestStep(vector<int>& arr, int m) {
         int n=arr.size();
-        string s(n,'1');
+     
         if(m==n) return n;
         
         set<int> zeroes;
@@ -17,7 +17,7 @@ public:
             if (leftLen == m || rightLen == m) {
                 return i;
             }
-            zeroes.insert(i);
+            zeroes.insert(pos);
         }
         return -1;
     }
