@@ -8,23 +8,19 @@ public:
             if(arr[n-1]!=1 || arr[n-1]!=n) return -1;
             else return n-1;
         } 
-        string target(m,'1');
-        int l=-1;
+        set<int> zeroes;
+        zeroes.insert(0); zeroes.insert(n+1);
         for(int i=n-1;i>=0;i--){
-            int curr = arr[i]-1;
-            s[curr]='0';
-            string left,right;
-            if(curr > l){
-            left = s.substr(l+1,curr-l-1);
-            right = s.substr(curr+1, n-curr+1);
+            int pos = arr[i];
+            auto it = zeroes.upper_bound(pos); //gives us the pointer to the closest zero on the right of the current position
+            auto rightBound =*it;
+            auto leftBound = *prev(it);  //gives us the pointer to the closest zero on the left of the current position
+            int rightLen = rightBound-pos-1;
+            int leftLen = pos-leftBound-1;
+            if (leftLen == m || rightLen == m) {
+                return i;
             }
-            else{
-                left = s.substr(0,curr);
-                right = s.substr(curr+1, l-curr-1);
-            }
-            
-            if(left.find(target)!=string::npos && right.find(target)!=string::npos) return i;
-            l=arr[i]-1;
+            zeroes.insert(i);
         }
         return -1;
     }
