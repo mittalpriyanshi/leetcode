@@ -17,6 +17,8 @@ public:
         if((countright+countleft)%2!=0) return true; //alice wins if odd ?
        
         return 2 * (sumLeft - sumRight) != 9 * (countright - countleft);
-        
+        //Bob's optimal strategy is pairing: if Alice replaces a ? with a number x, Bob will replace a ? on the same side with 9 - x. 
+        //This means every pair of ? allows Bob to add exactly 9 to that side's sum.
+        //Because of this, Bob can only win if the initial difference between the left sum and right sum can be perfectly balanced by the difference in ?s.
     }
 };
