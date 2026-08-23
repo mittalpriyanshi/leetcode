@@ -16,7 +16,7 @@ public:
         for(int i=0;i<n;i++){
             int target = n-i-1;
             int j=i;
-            while(j<n && zeroes[j]!=target) j++;
+            while(j<n && zeroes[j]<target) j++;
             if(j==n) return -1;
             swaps += j-i;
             while(j!=i){
