@@ -4,10 +4,7 @@ public:
         int n=arr.size();
         string s(n,'1');
         if(m==n) return n;
-        if(m==n-1){
-            if(arr[n-1]!=1 || arr[n-1]!=n) return -1;
-            else return n-1;
-        } 
+        
         set<int> zeroes;
         zeroes.insert(0); zeroes.insert(n+1);
         for(int i=n-1;i>=0;i--){
