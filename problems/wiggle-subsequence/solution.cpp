@@ -13,10 +13,10 @@ public:
         while(i<n-1 && nums[i+1]>=nums[i])
             i++;
         //increasing
-        if(i!=iprev) count++;
+        if(nums[i]!=nums[iprev] && i!=iprev) count++;
         iprev=i;
         while(i<n-1 && nums[i+1]<=nums[i]) i++; //decreasing
-        if(i!=iprev) count++;
+        if(nums[i]!=nums[iprev] && i!=iprev) count++;
      }
      return count;
     }
