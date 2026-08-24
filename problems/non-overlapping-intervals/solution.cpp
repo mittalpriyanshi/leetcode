@@ -5,7 +5,7 @@ public:
         sort(intervals.begin(), intervals.end(), [](auto &a, auto &b){
             return a[1]<b[1];
         });
-        int lastEnd=0;
+        int lastEnd=INT_MIN;
         int count=0;
         for(auto i:intervals){
             int start = i[0];
