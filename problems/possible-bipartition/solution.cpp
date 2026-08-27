@@ -9,10 +9,10 @@ public:
             adj[d[1]].push_back(d[0]);
         }
         color.resize(n+1,2);
-        bool res=false;
+        bool res=true;
         for(int i=1;i<=n;i++){
             if(color[i]==2) {
-                res =(res || bfs(i)) ;
+                res =(res && bfs(i)) ;
             }
         }
         return res;
