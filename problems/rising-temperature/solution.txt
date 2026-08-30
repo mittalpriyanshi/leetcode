@@ -1,0 +1,4 @@
+# Write your MySQL query statement below
+select id as Id from Weather x
+where temperature > ALL (select temperature from Weather y where x.recordDate > y.recordDate )
+and id <> 1
