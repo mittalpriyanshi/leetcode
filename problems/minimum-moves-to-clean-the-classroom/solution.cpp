@@ -3,8 +3,8 @@ public:
     vector<int> dir = {0, -1, 0, 1, 0};
     
     int minMoves(vector<string>& classroom, int energy) {
-        int rows = classroom.size();       // Renamed from m
-        int cols = classroom[0].size();   // Renamed from n
+        int rows = classroom.size();       
+        int cols = classroom[0].size();   
         int orgEnergy = energy;
         vector<vector<int>> litter(rows, vector<int>(cols,-1));
         int startRow, startCol;
@@ -41,16 +41,14 @@ public:
                 return s;
             }
             
-            // If out of energy, we can't move further from this state
             if (e == 0) continue; 
-            
             for(int i = 0; i < 4; i++){
                 int nr = r + dir[i];
                 int nc = c + dir[i+1];
                 
                 if(nr >= 0 && nr < rows && nc >= 0 && nc < cols && classroom[nr][nc] != 'X'){
                     int nextMask = mask;
-                    int nextEnergy = e - 1; // Assuming moving ALWAYS costs 1 energy
+                    int nextEnergy = e - 1; 
                     
                     if(classroom[nr][nc] == 'L'){
                         int pos = litter[nr][nc];
