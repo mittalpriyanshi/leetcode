@@ -2,6 +2,6 @@
 select a.employee_id from Employees a
 left join Employees b on a.manager_id = b.employee_id
 where b.employee_id is NULL
-and a.employee_id is not NULL
+ and a.manager_id is not NULL
 and a.salary<30000
 order by a.employee_id
