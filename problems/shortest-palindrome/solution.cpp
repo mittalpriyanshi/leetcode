@@ -4,7 +4,7 @@ public:
         string rev = s;
         reverse(rev.begin(), rev.end());
         for(int i=0;i<s.size();i++){
-            if(!memcmp(s.c_str(), rev.c_str()+i,s.length()-i)){
+            if(s.substr(0,s.length()-i)== rev.substr(i) ){
                 return rev.substr(0,i)+s;
             }
         }
