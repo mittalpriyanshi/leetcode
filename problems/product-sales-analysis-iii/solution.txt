@@ -11,5 +11,5 @@ WITH ranked_table as (
     SELECT product_id, year as first_year, quantity, price
     FROM ranked_table
     where rk=1
-    GROUP BY product_id
+    
 
