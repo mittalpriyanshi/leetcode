@@ -11,17 +11,16 @@
  */
 class Solution {
 public:
-int moves=0;
+int count=0;
     int distributeCoins(TreeNode* root) {
         findCoins(root);
-        return moves;
+        return count;
     }
     int findCoins(TreeNode* root){
-        if(root==nullptr) return 0;
-        int leftCoins = findCoins(root->left);
-        int rightCoins = findCoins(root->right);
-
-        moves += abs(leftCoins) + abs(rightCoins);
-        return leftCoins + rightCoins + root->val -1;
+        if(!root) return 0;
+        int rightBalance = findCoins(root->right);
+        int leftBalance = findCoins(root->left);
+        count += abs(rightBalance) + abs(leftBalance);
+        return leftBalance + rightBalance + root->val-1;
     }
 };
