@@ -6,44 +6,20 @@
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
- * right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
 class Solution {
 public:
     TreeNode* subtreeWithAllDeepest(TreeNode* root) {
-        unordered_map<TreeNode*, TreeNode*> mp;
-        mp[root] = nullptr;
-        queue<TreeNode*> q;
-        q.push(root);
-        vector<TreeNode*> deepestLeaves;
-        while (!q.empty()) {
-            int size = q.size();
-            deepestLeaves.clear();
-            while (size--) {
-                TreeNode* curr = q.front();
-                deepestLeaves.push_back(curr);
-                q.pop();
-                if (curr->left) {
-                    mp[curr->left] = curr;
-                    q.push(curr->left);
-                }
-                if (curr->right) {
-                    mp[curr->right] = curr;
-                    q.push(curr->right);
-                }
-            }
-        }
-        unordered_set<TreeNode*> set(deepestLeaves.begin(), deepestLeaves.end());
-        while(set.size()>1){
-            unordered_set<TreeNode*> LCA;
-            for(auto node: set){
-                LCA.insert(mp[node]);
-            }
-            set = LCA;
-        }
-        return *set.begin();
-        // parent Map is populated, and we push nodes at that depth in the set
+        return dfs(root).first;
+    }
+    pair<TreeNode*,int> dfs(TreeNode* node){
+        if(!node) return {nullptr, 0};
+        auto [rightChild, dr] = dfs(node->right);
+        auto [leftChild, dl]= dfs(node->left);
+        if(dr==dl) return {node, dr+1};
+        else if(dr>dl) return {rightChild, dr+1};
+        else return {leftChild, dl+1};
     }
 };
