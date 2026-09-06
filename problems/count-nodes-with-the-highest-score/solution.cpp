@@ -1,8 +1,8 @@
 class Solution {
 public:
 int n;
-int maxScore =0;
-int maxCount=0;
+long long maxScore =0;
+long long maxCount=0;
     int countHighestScoreNodes(vector<int>& parents) {
         n = parents.size();
         vector<vector<int>> adj(n);
