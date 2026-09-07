@@ -20,7 +20,7 @@ public:
     
     double findMedian() {
        if(pqmin.size() > pqmax.size()) return pqmin.top();
-       return double( pqmin.top() + pqmax.top()) /2.00;
+       return double(pqmin.top() + pqmax.top())/2.0;
     }
 };
 
