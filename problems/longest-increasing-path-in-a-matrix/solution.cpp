@@ -23,7 +23,7 @@ public:
             if (nr >= 0 && nr < m && nc >= 0 && nc < n && !vis[nr][nc] && matrix[nr][nc]> matrix[i][j]) {
                     vis[nr][nc]=true;
                     dfs(nr,nc,matrix,m,n,currLen+1, vis);
-
+                    vis[nr][nc]=false;
             }
         }
         maxLen = max(maxLen, currLen);
