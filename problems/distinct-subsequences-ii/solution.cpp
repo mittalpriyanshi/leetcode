@@ -11,7 +11,7 @@ const long long MOD = 1e9+7;
             int c = s[i]-'a';
             if(lastPos[c]!=-1){
                 if(lastPos[c]==0) dp[i]= 2*dp[i-1] % MOD ;
-                else dp[i]=(2*dp[i-1] - dp[lastPos[c]-1])%MOD;
+                else dp[i]=(2*dp[i-1]%MOD - dp[lastPos[c]-1]+MOD)%MOD;
                 lastPos[c]=i;
             }
             else{
