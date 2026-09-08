@@ -9,7 +9,7 @@ public:
                 return (n-999);
             }
             if(size==6){
-                return (n-999) + (n-99999);
+                return (n-999) + (n-100000);
             }
         }
         return 0;
