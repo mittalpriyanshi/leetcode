@@ -23,7 +23,7 @@ class DSU{
 class Solution {
 public:
     vector<bool> areConnected(int n, int threshold, vector<vector<int>>& queries) {
-        DSU graph(10001);
+        DSU graph(n+1);
         for(int i=1;i<=n;i++){
             for(int j=1; (j*j)<=i;j++){
                 if(i%j==0){
@@ -38,14 +38,12 @@ public:
                 }
             }
         }
-        vector<bool> res;
-        for(auto q: queries){
-            int n1 =q[0];
-            int n2 =q[1];
-            if(graph.findPar(n1) == graph.findPar(n2)) res.push_back(true);
-            else res.push_back(false);
+        vector<bool> res(queries.size(), false);
+        for(int i=0;i<queries.size();i++){
+            int u=queries[i][0];
+            int v=queries[i][1];
+            if(graph.findPar(u)==graph.findPar(v)) res[i]=true;
         }
         return res;
-        
     }
 };
