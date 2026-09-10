@@ -38,7 +38,7 @@ public:
                     chainLength++;
                 }
                 if(chainLength ==2){
-                maxLenChain = max(maxLenChain, chainLen[i]+chainLen[favorite[i]]+2);
+                maxLenChain += chainLen[i]+chainLen[favorite[i]]+2; //total 
             }
             else{
                 maxLenCycle  = max(maxLenCycle , chainLength);
