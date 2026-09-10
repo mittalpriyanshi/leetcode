@@ -27,24 +27,24 @@ public:
             indegree[next]--;
             if(indegree[next]==0) q.push(next);
         }
-        int maxCycle = 0, totalChains = 0;
-        for (int i = 0; i < n; ++i) {
-            if (!vis[i]) {
-                int current = i, cycleLength = 0;
-                while (!vis[current]) {
-                    vis[current] = true;
-                    current = favorite[current];
-                    cycleLength++;
+        int maxLenCycle = 0, maxLenChain=0;
+        for(int i=0;i<n;i++){
+            if(!vis[i]){
+                int chainLength=0;
+                int curr =i;
+                while(!vis[curr]){
+                    vis[curr] = true;
+                    curr = favorite[curr];
+                    chainLength++;
                 }
-
-                if (cycleLength == 2) {
-                    totalChains += 2 + chainLen[i] + chainLen[favorite[i]];
-                } else {
-                    maxCycle = max(maxCycle, cycleLength);
-                }
+                if(chainLength ==2){
+                maxLenChain = max(maxLenChain, chainLen[i]+chainLen[favorite[i]]+2);
+            }
+            else{
+                maxLenCycle  = max(maxLenCycle , chainLength);
+            }
             }
         }
-
-        return max(maxCycle, totalChains);
+        return max(maxLenCycle, maxLenChain);
     }
 };
