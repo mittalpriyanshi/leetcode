@@ -27,7 +27,7 @@ public:
     int numberOfGoodPaths(vector<int>& vals, vector<vector<int>>& edges) {
         int n = vals.size();
         vector<pair<int,int>> nodeVals;
-        unordered_map<int, vector<int>> mp;
+        map<int, vector<int>> mp;
         for(int i=0;i<n;i++){
             nodeVals.push_back({vals[i],i});
             mp[vals[i]].push_back(i);
