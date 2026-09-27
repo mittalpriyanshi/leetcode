@@ -14,7 +14,7 @@ class DSU{
         int p1 = findUlPar(a);
         int p2 = findUlPar(b);
         if(p1==p2) return;
-        if(size[b] > size[a]) swap(a,b);
+        if(size[p2] > size[p1]) swap(a,b);
         parent[p2] = p1;
         size[p1]+=size[p2]; 
     }
@@ -44,13 +44,13 @@ vector<int> dr = {-1, 1, 0, 0};
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 if(grid[i][j]==1){
-                    if(i==0) dsu.unite(TOP, i*m + j);
+                    if(i==0) dsu.unite(TOP, i*n + j);
                 }
             if(i>0 && grid[i-1][j]==1){
-                dsu.unite(i*m + j, (i-1)*m+j);
+                dsu.unite(i*n + j, (i-1)*n+j);
             }
             if(j>0 && grid[i][j-1]==1){
-                dsu.unite(i*m + j, (i)*m+(j-1));
+                dsu.unite(i*n + j, (i)*n+(j-1));
             }
 
             }
@@ -72,13 +72,13 @@ vector<int> dr = {-1, 1, 0, 0};
             for(int i=0;i<4;i++){
                 int nr = hr + dr[i];
                 int nc = hc+ dc[i];
-                if(nr>=0 && nr<m && nc>=0 && nc<n && grid[nr][nc]==1) dsu.unite(hr*m + hc, nr*m + nc);
+                if(nr>=0 && nr<m && nc>=0 && nc<n && grid[nr][nc]==1) dsu.unite(hr*n + hc, nr*n + nc);
             }
-            if(hr==0) dsu.unite(TOP, hr*m + hc);
+            if(hr==0) dsu.unite(TOP, hr*n + hc);
             int newSize = dsu.findSize(TOP);
 
             // agar dono connected hain toh dono ka size same hoga
-            if(dsu.findSize(TOP)== dsu.findSize(hr*m+hc)){
+            if(dsu.findSize(TOP)== dsu.findSize(hr*n+hc)){
                 res[h]=max(0, newSize - prevComponentSize-1);
             }
         }
