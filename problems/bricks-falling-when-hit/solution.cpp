@@ -14,7 +14,7 @@ class DSU{
         int p1 = findUlPar(a);
         int p2 = findUlPar(b);
         if(p1==p2) return;
-        if(size[p2] > size[p1]) swap(a,b);
+        if(size[p2] > size[p1]) swap(p1,p2);
         parent[p2] = p1;
         size[p1]+=size[p2]; 
     }
@@ -43,9 +43,8 @@ vector<int> dr = {-1, 1, 0, 0};
         
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                if(grid[i][j]==1){
-                    if(i==0) dsu.unite(TOP, i*n + j);
-                }
+                if(grid[i][j]!=1) continue;
+            if(i==0) dsu.unite(TOP, i*n + j);
             if(i>0 && grid[i-1][j]==1){
                 dsu.unite(i*n + j, (i-1)*n+j);
             }
@@ -78,9 +77,9 @@ vector<int> dr = {-1, 1, 0, 0};
             int newSize = dsu.findSize(TOP);
 
             // agar dono connected hain toh dono ka size same hoga
-            if(dsu.findSize(TOP)== dsu.findSize(hr*n+hc)){
+            
                 res[h]=max(0, newSize - prevComponentSize-1);
-            }
+            
         }
         return res;
     }
