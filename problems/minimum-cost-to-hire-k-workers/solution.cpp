@@ -9,7 +9,7 @@ public:
         }
         sort(workers.begin(), workers.end());
         priority_queue<int> pq;
-        double ans=INT_MAX;
+        double ans=1e18;
         long long qualitySum=0;
         priority_queue<int> maxHeap;
         for(auto [ratio, q]: workers){
