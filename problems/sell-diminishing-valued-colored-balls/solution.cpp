@@ -1,20 +1,55 @@
 class Solution {
 public:
+ const long long MOD = 1e9 + 7;
     int maxProfit(vector<int>& inventory, int orders) {
-        int n = inventory.size();
-        priority_queue<int> pq;
-        for(int i=0;i<n;i++){
-            pq.push(inventory[i]);
+       
+        sort(inventory.begin(), inventory.end(), greater<int>());
+        inventory.push_back(0);
+        long long ans = 0;
+
+        for (int i = 0; i < inventory.size() - 1; i++) {
+            long long high = inventory[i];
+            long long low = inventory[i + 1];
+
+            // Number of colors having at least 'high' balls
+            long long cnt = i + 1;
+            long long balls = cnt * (high - low);
+
+            if (orders >= balls) {
+                // For every color:
+                // high + (high-1) + ... + (low+1)
+                long long sum =
+                    (high + low + 1) * (high - low) / 2;
+
+                ans = (ans + cnt * sum) % MOD;
+
+                orders -= balls;
+            }
+            else {
+
+                // We cannot finish the whole level.
+
+                long long full = orders / cnt;
+                long long rem = orders % cnt;
+
+                // Sell 'full' levels from every color
+                //
+                // Example:
+                // high = 5, full = 2
+                // sell: 5 + 4
+                //
+                // low after these sales = 3
+                long long newLow = high - full;
+                long long sum =
+                    (high + newLow + 1) * full / 2;
+                ans = (ans + cnt * sum) % MOD;
+                // Remaining balls are sold at newLow
+                ans = (ans + rem * newLow) % MOD;
+
+                break;
+            }
         }
-        int count=0;
-        int sum=0;
-        while(!pq.empty() && count<orders){
-            int t =pq.top();
-            pq.pop();
-            sum +=t;
-            pq.push(t-1);
-            count++;
-        }
-        return sum;
+
+        return ans;
     }
 };
