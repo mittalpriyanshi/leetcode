@@ -18,7 +18,7 @@ public:
             }
         }
         shift = shift%26;
-        int ans = 'a' + shift;
+        char ans = 'a' + shift;
         return ans;
     }
 };
