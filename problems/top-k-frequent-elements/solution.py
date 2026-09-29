@@ -13,7 +13,7 @@ class Solution:
                 max_num = num
 
         ans.append(max_num)
-        mp.pop(max_num, None)
+        del mp[max_num]
         k-=1
        return ans
 
