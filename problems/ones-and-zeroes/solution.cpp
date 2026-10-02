@@ -2,32 +2,27 @@ class Solution {
 public:
     int findMaxForm(vector<string>& strs,int m,int n) {
         int sz=strs.size();
-        vector<vector<int>> freq(2,vector<int>(sz,0));
-        // zeroes and ones table
-        for(int i=0;i<sz;i++){
-            string num=strs[i];
-            for(int j=0;j<num.size();j++){
-                if(num[j]=='0'){
-                    freq[0][i]++;
-                }
-                else freq[1][i]++;
+        vector<vector<vector<int>>> dp(sz+1,vector<vector<int>>(m+1,vector<int>(n+1,0)));
+
+        for(int i=1;i<=sz;i++){
+            int zero=0,one=0;
+            for(char c:strs[i-1]){
+                if(c=='0') zero++;
+                else one++;
             }
-        }
-        //dp, take or not take
-        vector<vector<int>> dp(m+1,vector<int>(n+1,0));
-        //dp[i] = numbers of strings taken till i
-        for(int i=0;i<sz;i++){
-            //count z= freq[0][i];
-            //count one = dp[1][i];
-            // if z + count_zeroes <=m && one + count_ones <=n
-            // can choose to take or not take
-            //else not take
-            for(int z=m;z>=freq[0][i];z--){
-                for(int o=n;o>=freq[1][i];o--){
-                    dp[z][o]=max(dp[z][o],1+dp[z-freq[0][i]][o-freq[1][i]]);
+
+            for(int j=0;j<=m;j++){
+                for(int k=0;k<=n;k++){
+                    dp[i][j][k]=dp[i-1][j][k];
+
+                    if(j>=zero && k>=one){
+                        dp[i][j][k]=max(dp[i][j][k],
+                            1+dp[i-1][j-zero][k-one]);
+                    }
                 }
             }
         }
-        return dp[m][n];
+
+        return dp[sz][m][n];
     }
 };
