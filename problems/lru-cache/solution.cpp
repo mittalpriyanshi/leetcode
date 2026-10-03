@@ -14,10 +14,9 @@ int n;
     }
     void makeRecentlyUsed(int key){
         auto oldadress = mp[key].first;
-        auto newadress = dll.begin();
         dll.erase(oldadress);
         dll.push_front(key);
-        mp[key].first = newadress;
+        mp[key].first = dll.begin();
     }
     void put(int key, int value) {
         if(mp.find(key)!= mp.end()){
