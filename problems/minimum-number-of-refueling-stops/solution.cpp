@@ -8,7 +8,7 @@ public:
         sort(stations.begin(), stations.end());
         int n = stations.size();
         //max stops you can take are n and least is 0
-        vector<int> dp(n+1, -1);
+        vector<long long> dp(n+1, -1);
         //dp[j] = max distance i can reach with j number of stops
         dp[0]= startFuel;
         for (int i=0;i<n;i++){
