@@ -2,7 +2,7 @@
 class Solution {
 public:
     string s;
-    int dp[20][2];
+    int dp[11][2];
 
     int atMostNGivenDigitSet(vector<string>& digits, int n) {
         s = to_string(n);
