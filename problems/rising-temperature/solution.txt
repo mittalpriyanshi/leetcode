@@ -1,5 +1,4 @@
-SELECT today.id as Id
-FROM Weather yesterday 
-CROSS JOIN Weather today
-WHERE DATEDIFF(today.recordDate,yesterday.recordDate) = 1
-AND today.temperature > yesterday.temperature
+select w2.id as Id from Weather w1
+CROSS JOIN Weather w2
+where DATEDIFF(w2.recordDate, w1.recordDate) = 1
+and w2.temperature > w1.temperature
